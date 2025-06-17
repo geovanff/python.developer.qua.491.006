@@ -9,44 +9,47 @@
 # NOTE - O usuario deverá informar o encerramento do programa, ou seja, ele poderá repetir o calculo quantas vezes quiser.
 """""" 
 
-
 while True:
-    
-    nome = input("Digite seu nome: ")
-    peso = float(input("Digite seu peso em kg: ").replace(",", "."))
-    altura = float(input("Digite sua altura: ").replace(",", "."))
-    calculo = peso / (altura ** 2)
-    result =  "%.2f" % calculo
-    imc = float(result)
-    imc = round(imc, 2)  # Arredondar o IMC para 2 casas decimais
- 
-    
-    print(f"{nome}, seu IMC é: {imc}")
-    diagnostico = ""
 
-    if imc < 18.5:
-        diagnostico = "Abaixo do peso"
-    elif 18.5 <= imc < 25:
-        diagnostico = "Peso ideal"
-    elif 25 <= imc < 30:
-        diagnostico = "Acima do peso"
-    elif 30 <= imc < 35:
-        diagnostico = "Obeso"
-    elif 35 <= imc < 40:
-        diagnostico = "Obeso nível 2"
-    else:
-        diagnostico = "Obeso mórbido"
-    
-    print(f"Diagnóstico: {diagnostico}")
-    # Pergunta se o usuário deseja refazer o cálculo
+    try:
+        nome = input("Digite seu nome: ").title().strip()
+        peso = float(input("Digite seu peso em kg: ").replace(",", "."))
+        altura = float(input("Digite sua altura: ").replace(",", "."))
+        imc = peso / altura **2
 
-    opcao = input("Deseja refazer o cálculo? (s/n): ").lower().strip()
-    match opcao:
-        case 's':
-            continue
-        case 'n':
-            break
-        case _:
-            print("Opção inválida.")
-            continue
+        print(f" Ovalor do IMC é: {imc:.2f}.")
+    
+        if imc < 18.5:
+            print("{nome} Abaixo do peso.")
+        elif imc < 25:
+            print(f"{nome} Peso ideal.")
+        elif imc < 30:
+            print(f"{nome} Acima do peso.")
+        elif imc < 35:
+            print(f"{nome} Obeso.")
+        elif imc < 40:
+            print(f"{nome} Obesidade nível 2.")
+        else:
+            print(f"{nome} Obesidade mórbida.")
+
+        while True:
+            prosseguir = input("Deseja refazer? (s/n)").lower().strip()
+            if prosseguir == "s" or prosseguir == "n":
+                break
+            else:
+                print("Opção inválida.")
+                continue
+
+        match prosseguir:
+            case "s":
+                continue
+            case "n":
+                break
+
+    except Exception as e:
+        print(f"Não foi possível calcular o IMC. {e}")
+        continue
+
+
+
 
